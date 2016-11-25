@@ -1,0 +1,42 @@
+<% if !flash[:notice].blank? %>
+	<div class="notice">
+		<%= flash[:notice] %>
+	</div>
+<% end %>
+<% if !flash[:error].blank? %>
+	<div class="error">
+		<%= flash[:error] %>
+	</div>
+<% end %>
+
+<%= link_to("<< Back to List", pages_path, :class => 'back_list')%>
+<div class="pages new">
+	<h2>Create Page</h2>
+	<%= form_for(@page) do |f|%>
+		<table summary="Page form fields">
+			<tr>
+				<th>Name</th>
+				<td><%= f.text_field(:name) %></td>
+			</tr>
+			<tr>
+				<th>Subject ID</th>
+				<td><%= f.text_field(:subject_id) %></td>
+			</tr>
+			<tr>
+				<th>Position</th>
+				<td><%= f.text_field(:position) %></td>
+			</tr>
+			<tr>
+				<th>Position</th>
+				<td><%= f.text_field(:permalink) %></td>
+			</tr>
+			<tr>
+				<th>Visible</th>
+				<td><%= f.text_field(:visible) %></td>
+			</tr>
+		</table>
+		<div class="form-buttons">
+			<%= f.submit("Create Page") %>
+		</div>
+	<% end %>
+</div>

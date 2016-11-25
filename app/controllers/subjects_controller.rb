@@ -48,6 +48,7 @@ class SubjectsController < ApplicationController
   end
 
   def destroy
+    @subject = subject
     @subject.destroy
     flash[:notice] = "Subject #{@subject.name} deleted!"
     redirect_to(subjects_path)
