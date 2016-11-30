@@ -1,13 +1,4 @@
-<% if !flash[:notice].blank? %>
-	<div class="notice">
-		<%= flash[:notice] %>
-	</div>
-<% end %>
-<% if !flash[:error].blank? %>
-	<div class="error">
-		<%= flash[:error] %>
-	</div>
-<% end %>
+<% @page_title = "All sections" %>
 
 <div class="sections index">
 	<h2>Listing Sections</h2>
@@ -27,7 +18,7 @@
 			<td><%= section.position %></td>
 			<td><%= section.page_id %></td>
 			<td><%= section.name %></td>
-			<td class="center"><%= section.visible ? 'Yes' : 'No' %></td>
+			<td class="center"><%= status_tag(section.visible) %></td>
 			<td><%= section.content_type %></td>
 			<td><%= section.content %></td>
 			<td class="actions">
