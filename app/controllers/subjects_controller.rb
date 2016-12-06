@@ -12,6 +12,7 @@ class SubjectsController < ApplicationController
 
   def new
     @subject = Subject.new({:name => 'Default'})
+    @subject_count = Subject.count + 1
   end
 
   def create
@@ -25,12 +26,14 @@ class SubjectsController < ApplicationController
     else
       # fail
       flash[:error] = "Something went wrong"
+      @subject_count = Subject.count + 1
       render('new')
     end
   end
 
   def edit
     @subject = subject
+    @subject_count = Subject.count
   end
 
   def update
@@ -42,6 +45,8 @@ class SubjectsController < ApplicationController
       redirect_to(subject_path(@subject))
     else
       # fail
+      flash[:error] = "Something went wrong"
+      @subject_count = Subject.count + 1
       render('edit')
     end
   end
@@ -64,7 +69,7 @@ class SubjectsController < ApplicationController
   end
 
   def subject_params
-    params.require(:subject).permit(:name, :position, :visible)
+    params.require(:subject).permit(:name, :position, :visible, :created_at)
   end
 
 end
