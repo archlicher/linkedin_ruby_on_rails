@@ -2,17 +2,19 @@ class SubjectsController < ApplicationController
 
   layout 'admin'
 
+  before_action :find_subject, :only => [:show, :edit, :update, :delete, :destroy]
+  before_action :set_subject_count, :only => [:new, :create, :edit, :update]
+
   def index
+    logger.debug("################# Testing logger.")
     @subjects = Subject.sorted
   end
 
   def show
-    @subject = subject
   end
 
   def new
     @subject = Subject.new({:name => 'Default'})
-    @subject_count = Subject.count + 1
   end
 
   def create
@@ -26,18 +28,14 @@ class SubjectsController < ApplicationController
     else
       # fail
       flash[:error] = "Something went wrong"
-      @subject_count = Subject.count + 1
       render('new')
     end
   end
 
   def edit
-    @subject = subject
-    @subject_count = Subject.count
   end
 
   def update
-    @subject = subject
     # save ?
     if @subject.update_attributes(subject_params)
       # succ
@@ -46,17 +44,14 @@ class SubjectsController < ApplicationController
     else
       # fail
       flash[:error] = "Something went wrong"
-      @subject_count = Subject.count + 1
       render('edit')
     end
   end
 
   def delete
-    @subject = subject
   end
 
   def destroy
-    @subject = subject
     @subject.destroy
     flash[:notice] = "Subject #{@subject.name} deleted!"
     redirect_to(subjects_path)
@@ -64,7 +59,7 @@ class SubjectsController < ApplicationController
 
   private
 
-  def subject
+  def find_subject
     @subject = Subject.find(params[:id])
   end
 
@@ -72,4 +67,10 @@ class SubjectsController < ApplicationController
     params.require(:subject).permit(:name, :position, :visible, :created_at)
   end
 
+  def set_subject_count
+    @subject_count = Subject.count
+    if params[:action] == 'new' || params[:action] == 'create'
+      @subject_count += 1
+    end
+  end
 end
