@@ -3,6 +3,9 @@ class AdminUser < ApplicationRecord
 	FORBIDDEN_USERNAMES = ['user', 'admin', 'basic']
 
 	#self.table_name = "admin_users"
+
+	has_secure_password
+
 	has_and_belongs_to_many :pages
 	has_many :section_edits
 	has_many :sections, :through => :section_edits
@@ -18,7 +21,7 @@ class AdminUser < ApplicationRecord
 	validates :username,
 		:presence => true,
 		:length => { :within => 8..25 },
-		:uniiqueness => true
+		:uniqueness => true
 
 	validates_presence_of :email
 	validates_length_of :email, :maximum => 100
