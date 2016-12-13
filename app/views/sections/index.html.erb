@@ -1,6 +1,7 @@
 <% @page_title = "All sections" %>
 
 <div class="sections index">
+	<%= link_to("Back to menu", admin_path, :class => 'back-link')%>
 	<h2>Listing Sections</h2>
 	<%= image_tag('plus_s.png', :size => '11x11', :alt => '+') %>
 	<%= link_to("Add New Section", new_section_path, :class => 'action new')%>

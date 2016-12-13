@@ -8,6 +8,12 @@ Rails.application.routes.draw do
 	post 'access/attempt_login'
 	get 'access/logout'
 
+	resources :admin_users, :only => [:index, :new, :create, :edit, :update, :delete, :destroy] do
+		member do
+			get :delete
+		end
+	end
+
 	resources :subjects do
 		member do
 			get :delete
