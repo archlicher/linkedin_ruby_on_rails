@@ -4,6 +4,7 @@ class Section < ApplicationRecord
 	has_many :admin_users, :through => :section_edits
 
 	scope :sorted, lambda { order("position ASC") }
+	scope :visible, lambda { where(:visible => true) }
 
 	CONTENT_TYPES = ['text', 'HTML']
 

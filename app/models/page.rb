@@ -4,6 +4,7 @@ class Page < ApplicationRecord
 	has_and_belongs_to_many :admin_users #, :join_table => 'pages_admin_users'
 
 	scope :sorted, lambda { order("position ASC") }
+	scope :visible, lambda { where(:visible => true) }
 
 	validates_presence_of :name
 	validates_length_of :name, :maximum => 255
